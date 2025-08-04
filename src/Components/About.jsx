@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import heroBg from './image/herojpg'
+import heroBg from './image/hero.jpg'
 import { Link } from 'react-router-dom'; 
 import suraj from "./image/suraj.jpg"
 
