@@ -1,7 +1,7 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import reactLogo from './image/logoChitra.png';
+import reactLogo from './image/LogoChitra.png';
 import clsx from 'clsx';
 import '../App.css';
 
