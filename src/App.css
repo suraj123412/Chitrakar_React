@@ -1,0 +1,31 @@
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.logo {
+  height: 4em;
+  will-change: filter;
+  transition: filter 00ms;
+  color: black;
+  
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.nav-link {
+  position: relative;
+  display: inline-block;
+}
+@keyframes slideIn {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  100% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
