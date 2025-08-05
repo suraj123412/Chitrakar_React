@@ -7,19 +7,20 @@ const Register = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
-    
-    try {
-      const response = await AxiosInstance.post('/api/register/', formData); // ✅ AxiosInstance used
+    setLoading(true);
 
+    try {
+      const response = await AxiosInstance.post('/api/register/', formData);
       if (response.status === 201 || response.status === 200) {
         setSuccess('Registration successful!');
         setFormData({ username: '', password: '' });
@@ -35,20 +36,23 @@ const Register = () => {
       } else {
         setError('Registration failed. Server not responding.');
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-12 p-6 border rounded">
-      <h2 className="text-xl font-bold mb-4">Register</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-md mx-auto mt-12 p-6 border rounded text-gray-700 shadow-lg bg-white pt-40">
+      <h2 className="text-xl font-bold mb-4 text-center">Register</h2>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
         <input
           name="username"
           type="text"
           placeholder="Username"
           value={formData.username}
           onChange={handleChange}
-          className="w-full mb-3 p-2 border mt-10 text-gray-800"
+          className="w-full p-2 border rounded"
           required
         />
         <input
@@ -57,21 +61,29 @@ const Register = () => {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
-          className="w-full mb-3 p-2 border text-gray-800"
+          className="w-full p-2 border rounded"
           required
         />
-        {error && <p className="text-red-600 mb-2">{error}</p>}
-        {success && <p className="text-green-600 mb-2">{success}</p>}
-        <button className="bg-green-600 text-white px-4 py-2 rounded w-full">Register</button>
+
+        {error && <p className="text-red-600">{error}</p>}
+        {success && <p className="text-green-600">{success}</p>}
+
+        <button
+          type="submit"
+          disabled={loading}
+          className={`w-full ${
+            loading ? 'bg-gray-400' : 'bg-green-600 hover:bg-green-700'
+          } text-white py-2 rounded transition`}
+        >
+          {loading ? 'Registering...' : 'Register'}
+        </button>
       </form>
 
-      <p className="mt-4 text-sm text-center text-blue-500">
+      <p className="mt-6 text-center text-sm text-gray-600">
         Already have an account?{' '}
-        <button className="badge text-bg-primary p-2 rounded-pill">
-          <Link to="/login" className="text-white underline">
-            Login here
-          </Link>
-        </button>
+        <Link to="/login" className="text-blue-600 underline">
+          Login here
+        </Link>
       </p>
     </div>
   );

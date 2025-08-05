@@ -22,7 +22,7 @@ const Gallery = () => {
       {/* Gallery Content */}
       <div className={`container mx-auto px-4 py-10 transition-all duration-500 ${selectedItem ? 'blur-sm pointer-events-none' : ''}`}>
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-10 pt-10">
-          🎨 Our Art Gallery
+           Our Art Gallery
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-7xl mx-auto">

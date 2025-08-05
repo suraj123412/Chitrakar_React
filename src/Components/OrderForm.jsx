@@ -170,6 +170,12 @@ const OrderForm = ({ fetchOrders, editOrder, setEditOrder }) => {
         className="w-full p-2 border rounded"
       />
 
+      <textarea
+        name="adress"
+        placeholder="We sketch it. We pack it. We ship it – Right to your address....!"
+        className="w-full p-2 border rounded"
+      />
+
       <button
         type="submit"
         disabled={loading}

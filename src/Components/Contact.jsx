@@ -43,7 +43,7 @@ const Contact = () => {
           <div>
             <h3 className="font-semibold text-gray-800">WhatsApp</h3>
             <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="text-blue-500  no-underline hover:underline">
-              +91 8605854923S
+              +91 8605854923
             </a>
           </div>
         </motion.div>
