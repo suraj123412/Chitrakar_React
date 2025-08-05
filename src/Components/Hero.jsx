@@ -1,6 +1,9 @@
 import { Carousel } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import art1 from './image/art1.jpg'
+import art2 from './image/h1.jpg'
+import art3 from './image/h3.jpg'
 
 const Hero = () => {
   return (
@@ -9,7 +12,7 @@ const Hero = () => {
       <Carousel.Item>
         <img
           className="d-block w-full h-[70vh] object-cover"
-          src="https://images.pexels.com/photos/1269968/pexels-photo-1269968.jpeg"
+          src={art1}
           alt="Art 1"
         />
         <Carousel.Caption className="bottom-1/4">
@@ -46,8 +49,8 @@ const Hero = () => {
       <Carousel.Item>
         <img
           className="d-block w-full h-[60vh] object-cover"
-          src="https://images.stockcake.com/public/5/a/0/5a0200a2-cc2e-4e87-826d-6206aafea232_large/cinematic-reel-art-stockcake.jpg"
-          alt="Art 2"
+          src={art2}
+          alt="Art 1"
         />
         <Carousel.Caption className="bottom-1/4">
           <motion.h1
@@ -83,7 +86,7 @@ const Hero = () => {
       <Carousel.Item>
         <img
           className="d-block w-full h-[70vh] object-cover"
-          src="https://www.ultraimagehub.com/wallpapers/tr:flp-false,gx-0.3,gy-1,q-75,rh-3264,rw-5824,th-1080,tw-1920/1234042397831200838.jpeg"
+          src={art3}
           alt="Art 3"
         />
         <Carousel.Caption className="bottom-1/4">

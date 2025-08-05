@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AxiosInstance from '../api/AxiosInstance';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const pricing = {
   pencil: { A4: 599, A3: 799, A2: 999 },
@@ -17,6 +19,8 @@ const OrderForm = ({ fetchOrders, editOrder, setEditOrder }) => {
     description: '',
   });
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (editOrder) {
       setFormData({
@@ -24,7 +28,7 @@ const OrderForm = ({ fetchOrders, editOrder, setEditOrder }) => {
         mobile: editOrder.mobile || '',
         portrait_type: editOrder.portrait_type || 'pencil',
         size: editOrder.size || 'A4',
-        image: null, // don't prefill file input
+        image: null,
         description: editOrder.description || '',
       });
     }
@@ -49,9 +53,16 @@ const OrderForm = ({ fetchOrders, editOrder, setEditOrder }) => {
     const token = localStorage.getItem('accessToken');
 
     if (!token) {
-      alert('Please login first');
+      toast.warning('Please login first to place an order.');
       return;
     }
+
+    if (!/^\d{10}$/.test(formData.mobile)) {
+      toast.error("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+
+    setLoading(true);
 
     const config = {
       headers: {
@@ -68,9 +79,11 @@ const OrderForm = ({ fetchOrders, editOrder, setEditOrder }) => {
     try {
       if (editOrder) {
         await AxiosInstance.put(`/api/order/users/${editOrder.id}/`, data, config);
+        toast.success('Order updated successfully!');
         setEditOrder(null);
       } else {
         await AxiosInstance.post(`/api/order/users/`, data, config);
+        toast.success('Order placed successfully!');
       }
 
       setFormData({
@@ -85,7 +98,9 @@ const OrderForm = ({ fetchOrders, editOrder, setEditOrder }) => {
       fetchOrders();
     } catch (error) {
       console.error('Order submit error:', error);
-      alert('Something went wrong. Please check your form or login.');
+      toast.error('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -155,8 +170,14 @@ const OrderForm = ({ fetchOrders, editOrder, setEditOrder }) => {
         className="w-full p-2 border rounded"
       />
 
-      <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
-        {editOrder ? 'Update Order' : 'Place Order'}
+      <button
+        type="submit"
+        disabled={loading}
+        className={`w-full ${
+          loading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'
+        } text-white px-4 py-2 rounded transition`}
+      >
+        {loading ? 'Submitting...' : editOrder ? 'Update Order' : 'Place Order'}
       </button>
     </form>
   );

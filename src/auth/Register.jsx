@@ -48,7 +48,7 @@ const Register = () => {
           placeholder="Username"
           value={formData.username}
           onChange={handleChange}
-          className="w-full mb-3 p-2 border mt-10"
+          className="w-full mb-3 p-2 border mt-10 text-gray-800"
           required
         />
         <input
@@ -57,7 +57,7 @@ const Register = () => {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
-          className="w-full mb-3 p-2 border"
+          className="w-full mb-3 p-2 border text-gray-800"
           required
         />
         {error && <p className="text-red-600 mb-2">{error}</p>}

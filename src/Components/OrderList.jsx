@@ -4,11 +4,12 @@ import { motion } from 'framer-motion';
 
 const OrderList = ({ orders, fetchOrders, setEditOrder }) => {
   const token = localStorage.getItem('accessToken');
-  let user = null;
+  let userId = null;
 
   if (token) {
     try {
-      user = JSON.parse(atob(token.split('.')[1]));
+      const decoded = JSON.parse(atob(token.split('.')[1]));
+      userId = decoded.user_id; // ✅ Extract user ID from token
     } catch (err) {
       console.error("Token parsing error:", err);
     }
@@ -21,7 +22,7 @@ const OrderList = ({ orders, fetchOrders, setEditOrder }) => {
       await AxiosInstance.delete(`/api/order/users/${id}/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      fetchOrders(); // Refresh the order list
+      fetchOrders(); // Refresh list
     } catch (err) {
       console.error('Delete error', err);
       alert("Error deleting order.");
@@ -29,7 +30,7 @@ const OrderList = ({ orders, fetchOrders, setEditOrder }) => {
   };
 
   return (
-    <div className="w-max md:w-[85%] lg:w-[70%] mx-auto  px-1">
+    <div className="w-max md:w-[85%] lg:w-[70%] mx-auto px-1">
       <h3 className="text-2xl font-bold text-center mb-6 text-gray-800">🖼️ All Orders</h3>
 
       {orders.length === 0 ? (
@@ -60,21 +61,21 @@ const OrderList = ({ orders, fetchOrders, setEditOrder }) => {
                 />
               )}
 
-              <div className="flex gap-3 mt-4">
-                <button
-                  onClick={() => setEditOrder(order)}
-                  className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black py-2 rounded transition"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(order.id)}
-                  className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded transition"
-                >
-                  Delete
-                </button>
-              </div>
-
+                <div className="flex gap-3 mt-4">
+                  <button
+                    onClick={() => setEditOrder(order)}
+                    className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-black py-2 rounded transition"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(order.id)}
+                    className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded transition"
+                  >
+                    Delete
+                  </button>
+                </div>
+              
             </motion.div>
           ))}
         </div>
