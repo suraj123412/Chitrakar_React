@@ -54,7 +54,7 @@ const Hero = () => {
         />
         <Carousel.Caption className="bottom-1/4">
           <motion.h1
-            className="text-2xl md:text-4xl font-bold text-white drop-shadow-lg"
+            className="text-2xl md:text-4xl font-bold text-gray-800 drop-shadow-lg "
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
@@ -62,7 +62,7 @@ const Hero = () => {
             Capture Memories
           </motion.h1>
           <motion.p
-            className="text-sm md:text-lg text-white drop-shadow-md mt-2"
+            className="text-sm md:text-lg text-gray-800 drop-shadow-md mt-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
